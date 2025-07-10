@@ -6,7 +6,7 @@
   bottom: 0;
   background: url('https://voxiom.io/package/37c11af315d98939ce2c.png') no-repeat center center;
   background-size: cover;
- filter: grayscale(50%); 
+ filter: grayscale(76%); 
 }
 
 	
@@ -839,4 +839,6 @@ select:nth-child(1),
 .sc-jwrNVz.fVmNa {
   display: flex; 
 }
+
+
 
