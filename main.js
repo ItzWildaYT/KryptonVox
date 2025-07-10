@@ -1070,7 +1070,7 @@ resetEverythingButton.addEventListener('click', function () {
 				existingLink.remove();
 			}
 
-			const defaultCSS = 'https://kryptonvox.netlify.app/main.css';
+			const defaultCSS = 'https://kryptovox.netlify.app/main.css';
 			const link = document.createElement('link');
 			link.rel = 'stylesheet';
 			link.href = defaultCSS;
@@ -1453,7 +1453,7 @@ function createKeybindForm() {
 
 		let cssFile = cssCheckbox.checked
 			? ''
-			: 'https://kryptonvox.netlify.app/main.css';
+			: 'https://kryptovox.netlify.app/main.css';
 		const link = document.createElement('link');
 		link.rel = 'stylesheet';
 		link.href = cssFile;
