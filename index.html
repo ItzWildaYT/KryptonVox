@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <link href="nac.png" rel="icon" type="image/x-icon">
+  <link href="nac.png" rel="apple-touch-icon">
+  <title>KryptoVox</title>
+  <style>
+    h1 {
+      font-size: 25px;
+      color: #0f0;
+    }
+    body {
+      font-family: monospace;
+      background-color: #111;
+      color: #ddd;
+      padding: 10px;
+    }
+    .container {
+      margin: 0 auto;
+      max-width: 700px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      user-select: none;
+    }
+    .marked {
+      background-color: rgba(255, 255, 255, .1);
+      color: #f0f;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+    .code-block {
+      background-color: rgba(255, 255, 255, .05);
+      color: #0ff;
+      max-width: 664px;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: left;
+      border: 1px solid #0f0;
+      word-wrap: break-word;
+      margin-top: 20px;
+    }
+    .features {
+      margin-top: 50px;
+      border-top: 2px solid #0f0;
+      padding-top: 20px;
+    }
+    .feature {
+      margin-bottom: 30px;
+    }
+    .feature h2 {
+      color: #0f0;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .feature p {
+      font-size: 13px;
+      color: #ccc;
+    }
+    .feature img {
+      width: 100%;
+      max-width: 640px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+  <div class="container">
+
+   <h1>Welcome</h1>
+   <p style="margin-top:20px">
+  Welcome to <span class="marked">KryptonVox</span> – a powerful customization layer for <span class="marked">Voxiom.io</span>.<br>
+  This platform allows you to enhance your experience with features like custom CSS, Skin changing, Custom Crosshairs and more to come!
+  <br><br>
+  <span style="color:grey">Credits: ItzWilda (Owner), Nackoo (Original Coder)</span>
+</p>
+
+
+    <h1>What's this site about?</h1>
+    <p style="margin-top:40px">
+      apparently, this site is for storing the javascript <span class="marked">/main.js</span> and css <span class="marked">/main.css</span> file that will get fetched by the client side and applied to the voxiom page.
+      <br><br>
+      but why? The reason the css must be fetched from the file <span class="marked">/main.css</span> instead of just applying on the client side, it's because there's feature called <span class="marked">custom css style</span> on the newest version...
+    </p>
+    <div class="code-block">
+      let cssFile = cssCheckbox.checked ? "" : "https://kryptovox.netlify.app/main.css";
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = cssFile;
+      link.dataset.css = 'true';
+      document.head.appendChild(link);
+    </div>
+    <p style="margin-top:20px">
+      if <span class=marked>cssCheckbox</span> is checked, that means the user is going to use their own css, that means the appended stylesheet link to the <span class=marked>document.head</span> is none, and append the style of their own instead. if the css code textarea is left empty, then apply the default style from voxiom.io.<br><br>The reason the js must be fetched from a file instead of just straight up applying on the client side, it's because we've made one-time apply code that lets people use our program and stay updated. so everytime the program has an update, after the updated code is being deployed to the internet, everything that fetches that file will also get updated.
+    </p>
+    <div class="code-block">
+      document.head.appendChild(Object.assign(document.createElement('script'), {
+      src: 'https://kryptovox.netlify.app/main.js?v=' + Date.now(),
+      async: true
+}));
+    </div>
+    <p style="margin-top:20px">
+      apply the code above this and get the newest UI version avaible and an auto-update feature.
+    </p>
+
+   <p style="margin-top:30px;color:grey">
+  © KryptonVox 2025. All rights reserved.<br>
+  Last Updated: July 10, 2025, By: ItzWildaYT
+</p>
+
+  </div>
+</html>
