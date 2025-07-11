@@ -191,8 +191,8 @@ function toggleFocusMode(isChecked) {
 	localStorage.setItem('useFocusMode', isChecked ? 'true' : 'false');
 
 	const elementsToModify = document.querySelectorAll(
-		'.cxSTIe, .ekCLHU, .eFhDSk, .lpfJAq *, .lpdfTz *, .sc-kqnjJL'
-	);
+  'table.sc-fKknU.dbJyuA, .sc-erFXsz.cxSTIe, .sc-eoHXOn.lpdfTz'
+);
 
 	elementsToModify.forEach((element) => {
 		element.style.setProperty(
@@ -918,10 +918,7 @@ function showPopup(name, item) {
   }, 3000);
 }
 
-const notifiedMessages = new WeakSet();
-let globalCheckedCount = 0;
-
-const observerx = new MutationObserver(mutations => {
+const observerx = new MutationObserver(() => {
   if (!checkboxx.checked) return;
 
   let mentionValues;
@@ -932,57 +929,51 @@ const observerx = new MutationObserver(mutations => {
     mentionValues = [];
   }
   if (mentionValues.length === 0) return;
-  let thisRunCount = 0;
 
-  mutations.forEach(mutation => {
-    mutation.addedNodes.forEach(node => {
-      if (!(node instanceof HTMLElement)) return;
+ const items = Array.from(document.querySelectorAll('.sc-wkwDy.gTfPhn'));
+  const lastItem = items[items.length - 1]; 
 
-      const targets = node.matches('.sc-wkwDy.gTfPhn')
-        ? [node]
-        : Array.from(node.querySelectorAll('.sc-wkwDy.gTfPhn'));
+  items.forEach(item => {
+    const spans = item.querySelectorAll('span');
+    if (spans.length < 4) return;
 
-      targets.forEach(item => {
-        if (item.dataset.mentionSeen === 'true') return;
+    const mentionSpan = item.querySelector('span:last-child');
+    if (!mentionSpan) return;
 
-        const spans = item.querySelectorAll('span');
-        if (spans.length < 4) return;
+    const content = mentionSpan.textContent.toLowerCase();
 
-        const mentionSpan = item.querySelector('span:last-child');
-        if (!mentionSpan) return;
+    const matched = mentionValues.some(val =>
+      val.toLowerCase() && content.includes(val.toLowerCase())
+    );
 
-        const content = mentionSpan.textContent.toLowerCase().trim();
-        if (!content || content === ':' || content.length < 2) return;
+    if (matched) {
+      item.classList.add('highlighted');
+      item.style.background = 'rgba(255,204,77,0.2)';
+      item.style.marginTop = "5px";
+      item.style.marginBottom = "5px";
 
-        globalCheckedCount++;
-        thisRunCount++;
+      const isLast = item === lastItem;
 
-        console.log(`%cChecking [${globalCheckedCount}]:`, 'color: orange;', `"${content}"`);
-
-        const match = mentionValues.find(val =>
-          val.toLowerCase() && content.includes(val.toLowerCase())
-        );
-
-        if (match) {
-          console.log(`%cMatched:`, 'color: green;', `"${match}" in "${content}"`);
-          item.dataset.mentionSeen = 'true';
-          item.classList.add('highlighted');
-          item.style.background = 'rgba(255,204,77,0.2)';
-          item.style.marginTop = "5px";
-          item.style.marginBottom = "5px";
-
-          const nameSpan = item.querySelector('span:first-child');
-          const name = nameSpan ? nameSpan.textContent.trim() : 'Someone';
-          showPopup(name, item);
-        }
-      });
-    });
+      if (isLast && !item.dataset.popupShown) {
+        const nameSpan = item.querySelector('span:first-child');
+        const name = nameSpan ? nameSpan.textContent.trim() : 'Someone';
+        showPopup(name, item);
+        item.dataset.popupShown = "true";
+      }
+    } else {
+      item.classList.remove('highlighted');
+      item.style.background = '';
+      item.style.marginTop = "";
+      item.style.marginBottom = "";
+      delete item.dataset.popupShown;
+    }
   });
 });
 
 observerx.observe(document.body, {
   childList: true,
-  subtree: true
+  subtree: true,
+  characterData: true
 });
 
 const resetEverythingButton = document.createElement('button');
