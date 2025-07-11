@@ -1310,7 +1310,9 @@ function createKeybindForm() {
 	form.id = 'keybindForm';
 	form.style.display = 'none';
 	form.style.flexDirection = 'column';
-	form.style.alignItems = 'flex-end';
+	form.style.textAlign = 'left';        
+	form.style.display = 'flex';
+	form.style.flexDirection = 'column';
 
 	const dropdownWrapper = document.createElement('div');
 	dropdownWrapper.style.display = 'flex';
